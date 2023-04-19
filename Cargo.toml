@@ -3,4 +3,5 @@
 members = [
     "guessing_game",
     "collatz_theorem",
+    "comprehensive_day_1_morning"
 ]
