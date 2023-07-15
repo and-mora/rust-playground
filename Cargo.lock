@@ -19,6 +19,10 @@ name = "collatz_theorem"
 version = "0.1.0"
 
 [[package]]
+name = "comprehensive_day_1_afternoon"
+version = "0.1.0"
+
+[[package]]
 name = "comprehensive_day_1_morning"
 version = "0.1.0"
 dependencies = [
