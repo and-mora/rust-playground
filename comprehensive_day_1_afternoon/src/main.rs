@@ -75,7 +75,7 @@ impl Library {
         // return oldest_book;
 
         // official (and best) solution
-        //self.books.iter().min_by_key(|book| book.year)
+        self.books.iter().min_by_key(|book| book.year)
     }
 }
 
