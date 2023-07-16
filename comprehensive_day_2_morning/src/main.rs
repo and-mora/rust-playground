@@ -23,35 +23,54 @@ pub struct HealthReport<'a> {
 
 impl User {
     pub fn new(name: String, age: u32, height: f32) -> Self {
-        unimplemented!()
+        Self { name, age, height, visit_count: 0, last_blood_pressure: None }
     }
 
     pub fn name(&self) -> &str {
-        unimplemented!()
+        self.name.as_str()
     }
 
     pub fn age(&self) -> u32 {
-        unimplemented!()
+        self.age
     }
 
     pub fn height(&self) -> f32 {
-        unimplemented!()
+        self.height
     }
 
     pub fn doctor_visits(&self) -> u32 {
-        unimplemented!()
+        self.visit_count as u32
     }
 
     pub fn set_age(&mut self, new_age: u32) {
-        unimplemented!()
+        self.age = new_age
     }
 
     pub fn set_height(&mut self, new_height: f32) {
-        unimplemented!()
+        self.height = new_height
     }
 
     pub fn visit_doctor(&mut self, measurements: Measurements) -> HealthReport {
-        unimplemented!()
+        // calculate diffs
+        let height_change = measurements.height - self.height;
+        let blood_pressure_change: Option<(i32, i32)> = match self.last_blood_pressure {
+            None => None,
+            Some(last_pressure) =>
+                Some((measurements.blood_pressure.0 as i32 - last_pressure.0 as i32,
+                      measurements.blood_pressure.1 as i32 - last_pressure.1 as i32))
+        };
+
+        // update user data
+        self.height = measurements.height;
+        self.last_blood_pressure = Some(measurements.blood_pressure);
+        self.visit_count += 1;
+
+        HealthReport {
+            patient_name: self.name.as_str(),
+            visit_count: self.visit_count as u32,
+            height_change,
+            blood_pressure_change,
+        }
     }
 }
 
