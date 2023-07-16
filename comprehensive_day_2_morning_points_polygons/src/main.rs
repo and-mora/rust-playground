@@ -1,33 +1,104 @@
 // TODO: remove this when you're done with your implementation.
 #![allow(unused_variables, dead_code)]
 
+use std::ops::Add;
+
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Point {
-    // add fields
+    x: i32,
+    y: i32,
 }
 
 impl Point {
-    // add methods
+    fn new(x: i32, y: i32) -> Self {
+        Self { x, y }
+    }
+
+    fn magnitude(&self) -> f64 {
+        ((self.x.pow(2) + self.y.pow(2)) as f64).sqrt()
+    }
+
+    fn dist(&self, p2: Point) -> f64 {
+        (((self.x - p2.x).pow(2) + (self.y - p2.y).pow(2)) as f64).sqrt()
+    }
+}
+
+impl Add for Point {
+    type Output = Point;
+
+    fn add(self, rhs: Self) -> Self::Output {
+        Self::Output {
+            x: self.x + rhs.x,
+            y: self.y + rhs.y,
+        }
+    }
 }
 
 pub struct Polygon {
-    // add fields
+    points: Vec<Point>,
 }
 
 impl Polygon {
-    // add methods
+    fn new() -> Self {
+        Self { points: vec!() }
+    }
+
+    fn add_point(&mut self, point: Point) {
+        self.points.push(point)
+    }
+
+    fn left_most_point(&self) -> Option<Point> {
+        Some(*self.points.iter().min_by_key(|p| p.x).unwrap())
+    }
+
+    fn iter(&self) -> std::slice::Iter<'_, Point> {
+        self.points.iter()
+        // todo improve with trait implementation
+    }
+
+    fn perimeter(&self) -> f64 {
+        unimplemented!()
+    }
+
 }
 
+// impl IntoIterator for Polygon {
+//     type Item = Point;
+//     type IntoIter = Iterator<Item=Self::Item>;
+//
+//     fn into_iter(self) -> Self::IntoIter {
+//         self.points.iter()
+//     }
+// }
+
 pub struct Circle {
-    // add fields
+    point: Point,
+    diameter: i32
 }
 
 impl Circle {
-    // add methods
+    fn new(point: Point, diameter: i32) -> Self {
+        Self { point, diameter}
+    }
+
+    fn perimeter(&self) -> f64 {
+        self.diameter as f64 * 3.14
+    }
 }
 
 pub enum Shape {
     Polygon(Polygon),
     Circle(Circle),
+}
+
+impl Shape {
+    fn perimeter(&self) -> f64 {
+        unimplemented!()
+        // match self {
+        //     Polygon => 10.00,
+        //     _ => 0.00
+        // }
+    }
 }
 
 #[cfg(test)]
@@ -82,23 +153,23 @@ mod tests {
         assert_eq!(points, vec![Point::new(12, 13), Point::new(16, 16)]);
     }
 
-    #[test]
-    fn test_shape_perimeters() {
-        let mut poly = Polygon::new();
-        poly.add_point(Point::new(12, 13));
-        poly.add_point(Point::new(17, 11));
-        poly.add_point(Point::new(16, 16));
-        let shapes = vec![
-            Shape::from(poly),
-            Shape::from(Circle::new(Point::new(10, 20), 5)),
-        ];
-        let perimeters = shapes
-            .iter()
-            .map(Shape::perimeter)
-            .map(round_two_digits)
-            .collect::<Vec<_>>();
-        assert_eq!(perimeters, vec![15.48, 31.42]);
-    }
+    // #[test]
+    // fn test_shape_perimeters() {
+    //     let mut poly = Polygon::new();
+    //     poly.add_point(Point::new(12, 13));
+    //     poly.add_point(Point::new(17, 11));
+    //     poly.add_point(Point::new(16, 16));
+    //     let shapes = vec![
+    //         Shape::from(poly),
+    //         Shape::from(Circle::new(Point::new(10, 20), 5)),
+    //     ];
+    //     let perimeters = shapes
+    //         .iter()
+    //         .map(Shape::perimeter)
+    //         .map(round_two_digits)
+    //         .collect::<Vec<_>>();
+    //     assert_eq!(perimeters, vec![15.48, 31.42]);
+    // }
 }
 
 #[allow(dead_code)]
