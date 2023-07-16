@@ -80,7 +80,6 @@ impl Polygon {
     //pub fn iter(&self) -> impl Iterator<Item = &Point> {
 
     fn perimeter(&self) -> f64 {
-        // hard part
         let mut perimeter = 0.00;
         let mut previous_point = self.points.first().unwrap();
 
