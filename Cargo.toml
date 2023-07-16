@@ -5,5 +5,5 @@ members = [
     "collatz_theorem",
     "comprehensive_day_1_morning",
     "comprehensive_day_1_afternoon",
-    "comprehensive_day_2_morning"
+    "comprehensive_day_2_morning_health_stats"
 ]
