@@ -6,5 +6,6 @@ members = [
     "comprehensive_day_1_morning",
     "comprehensive_day_1_afternoon",
     "comprehensive_day_2_morning_health_stats",
-    "comprehensive_day_2_morning_points_polygons"
+    "comprehensive_day_2_morning_points_polygons",
+    "comprehensive_day_2_afternoon"
 ]
