@@ -1,26 +1,34 @@
 #![allow(unused_variables, dead_code)]
 
 pub fn prefix_matches(prefix: &str, request_path: &str) -> bool {
-    let prefix_split = prefix.split('/');
+    let prefix_segments = prefix.split('/');
+    let mut request_segments = request_path.split('/');
 
-    println!("checking: {prefix} vs {request_path}");
-    for (index, path) in prefix_split.enumerate() {
-
-        match request_path.split('/').nth(index) {
+    for path in prefix_segments {
+        match request_segments.next() {
             None => {
                 return false;
             }
             Some(str) => {
                 // wildcard is gonna ignore the content of request
-                if path.eq("*") {
-                    continue;
-                }
-                if !str.eq(path) {
+                if !str.eq(path) && !path.eq("*") {
                     return false;
                 }
             }
         }
     }
+
+    //// !!implementation proposed by solution!!
+    // let mut request_segments = request_path.split('/');
+    //
+    // for prefix_segment in prefix.split('/') {
+    //     let Some(request_segment) = request_segments.next() else {
+    //         return false;
+    //     };
+    //     if request_segment != prefix_segment && prefix_segment != "*" {
+    //         return false;
+    //     }
+    // }
     true
 }
 
@@ -39,24 +47,22 @@ fn test_matches_without_wildcard() {
 fn test_matches_with_wildcard() {
     assert!(prefix_matches(
         "/v1/publishers/*/books",
-        "/v1/publishers/foo/books"
+        "/v1/publishers/foo/books",
     ));
     assert!(prefix_matches(
         "/v1/publishers/*/books",
-        "/v1/publishers/bar/books"
+        "/v1/publishers/bar/books",
     ));
     assert!(prefix_matches(
         "/v1/publishers/*/books",
-        "/v1/publishers/foo/books/book1"
+        "/v1/publishers/foo/books/book1",
     ));
 
     assert!(!prefix_matches("/v1/publishers/*/books", "/v1/publishers"));
     assert!(!prefix_matches(
         "/v1/publishers/*/books",
-        "/v1/publishers/foo/booksByAuthor"
+        "/v1/publishers/foo/booksByAuthor",
     ));
 }
 
-fn main() {
-
-}
+fn main() {}
