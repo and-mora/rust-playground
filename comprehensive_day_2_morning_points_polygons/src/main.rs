@@ -1,4 +1,3 @@
-// TODO: remove this when you're done with your implementation.
 #![allow(unused_variables, dead_code)]
 
 use std::f64::consts::PI;
@@ -77,7 +76,7 @@ impl Polygon {
         self.points.iter()
     }
     // proposed solution
-    //pub fn iter(&self) -> impl Iterator<Item = &Point> {
+    //pub fn iter(&self) -> impl Iterator<Item = &Point> {}
 
     fn perimeter(&self) -> f64 {
         let mut perimeter = 0.00;
