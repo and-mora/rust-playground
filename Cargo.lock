@@ -30,6 +30,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "comprehensive_day_2_afternoon"
+version = "0.1.0"
+
+[[package]]
 name = "comprehensive_day_2_morning_health_stats"
 version = "0.1.0"
 
