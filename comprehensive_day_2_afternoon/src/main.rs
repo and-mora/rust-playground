@@ -1,8 +1,27 @@
-// TODO: remove this when you're done with your implementation.
 #![allow(unused_variables, dead_code)]
 
 pub fn prefix_matches(prefix: &str, request_path: &str) -> bool {
-    unimplemented!()
+    let prefix_split = prefix.split('/');
+
+    println!("checking: {prefix} vs {request_path}");
+    for (index, path) in prefix_split.enumerate() {
+
+        match request_path.split('/').nth(index) {
+            None => {
+                return false;
+            }
+            Some(str) => {
+                // wildcard is gonna ignore the content of request
+                if path.eq("*") {
+                    continue;
+                }
+                if !str.eq(path) {
+                    return false;
+                }
+            }
+        }
+    }
+    true
 }
 
 #[test]
